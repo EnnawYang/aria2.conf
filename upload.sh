@@ -7,7 +7,7 @@
 #
 # https://github.com/P3TERX/aria2.conf
 # File name：upload.sh
-# Description: Use Rclone to upload files after Aria2 download is complete
+# Description: Use Gclone to upload files after Aria2 download is complete
 # Version: 3.0
 #
 
@@ -21,12 +21,12 @@ CHECK_CORE_FILE() {
     fi
 }
 
-CHECK_RCLONE() {
+CHECK_GCLONE() {
     [[ $# -eq 0 ]] && {
-        echo && echo -e "Checking RCLONE connection ..."
-        rclone mkdir "${DRIVE_NAME}:${DRIVE_DIR}/P3TERX.COM"
+        echo && echo -e "Checking GCLONE connection ..."
+        gclone mkdir "${DRIVE_NAME}:${DRIVE_DIR}/P3TERX.COM"
         if [[ $? -eq 0 ]]; then
-            rclone rmdir "${DRIVE_NAME}:${DRIVE_DIR}/P3TERX.COM"
+            gclone rmdir "${DRIVE_NAME}:${DRIVE_DIR}/P3TERX.COM"
             echo
             echo -e "${LIGHT_GREEN_FONT_PREFIX}success${FONT_COLOR_SUFFIX}"
             exit 0
@@ -86,9 +86,9 @@ UPLOAD_FILE() {
             echo -e "$(DATE_TIME) ${ERROR} Upload failed! Retry ${RETRY}/${RETRY_NUM} ..."
             echo
         )
-        rclone move -v "${LOCAL_PATH}" "${REMOTE_PATH}"
-        RCLONE_EXIT_CODE=$?
-        if [ ${RCLONE_EXIT_CODE} -eq 0 ]; then
+        gclone move -v "${LOCAL_PATH}" "${REMOTE_PATH}"
+        GCLONE_EXIT_CODE=$?
+        if [ ${GCLONE_EXIT_CODE} -eq 0 ]; then
             UPLOAD_LOG="$(DATE_TIME) ${INFO} Upload done: ${LOCAL_PATH} -> ${REMOTE_PATH}"
             OUTPUT_UPLOAD_LOG
             DELETE_EMPTY_DIR
@@ -107,7 +107,7 @@ UPLOAD_FILE() {
 
 CHECK_CORE_FILE "$@"
 CHECK_SCRIPT_CONF
-CHECK_RCLONE "$@"
+CHECK_GCLONE "$@"
 CHECK_FILE_NUM
 GET_TASK_INFO
 GET_DOWNLOAD_DIR

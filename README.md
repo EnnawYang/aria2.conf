@@ -1,3 +1,5 @@
+### 上传程序由原来调用rclone修改为gclone  
+
 # Aria2 完美配置
 
 [![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=License)](https://github.com/P3TERX/aria2.conf/blob/master/LICENSE)
